@@ -27,6 +27,7 @@ for name in names:
 
 with open('result3.csv', 'w') as writecsv:
   csvwriter = csv.writer(writecsv, delimiter=',')
+  csvwriter.writerow(['Letter', 'Frequency'])
   for key in result_dict:
     csvwriter.writerow([key, result_dict[key]])
 

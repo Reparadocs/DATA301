@@ -30,6 +30,7 @@ for year in names_dict:
 
 with open('result1.csv', 'w') as writecsv:
   csvwriter = csv.writer(writecsv, delimiter=',')
+  csvwriter.writerow(['Year', 'Avg Length'])
   for key in result_dict:
     csvwriter.writerow([key, result_dict[key]])
 

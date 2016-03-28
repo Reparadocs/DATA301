@@ -34,5 +34,9 @@ for name in names:
     result_dict[name.gender] += name.count
   total_dict[name.gender] += name.count
 
-print result_dict
-print total_dict
+with open('result2.csv', 'w') as writecsv:
+  csvwriter = csv.writer(writecsv, delimiter=',')
+  csvwriter.writerow(['Gender', 'Names ending with a vowel', 'Total Names'])
+  csvwriter.writerow(['M', result_dict['M'], total_dict['M']])
+  csvwriter.writerow(['F', result_dict['F'], total_dict['F']])
+
