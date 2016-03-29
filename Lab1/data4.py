@@ -1,5 +1,7 @@
 import csv
 
+NAME_LIMIT = 4
+
 class Name:
   def __init__(self, name, year, gender, count):
     self.name = name
@@ -9,13 +11,16 @@ class Name:
 
 class NameResult:
   def __init__(self, count, gender):
-    if gender == 'M':
-      self.male = count
-    else:
-      self.female = count
     self.total = 0
     self.percentage_male = 0
     self.percentage_female = 0
+    self.delta = 1
+    if gender == 'M':
+      self.male = count
+      self.percentage_male = 1
+    else:
+      self.female = count
+      self.percentage_female = 1
 
   def complete(self, count, gender):
     if gender == 'M':
@@ -28,6 +33,7 @@ class NameResult:
     self.total = self.male + self.female
     self.percentage_male = float(self.male) / float(self.total)
     self.percentage_female = float(self.female) / float(self.total)
+    self.delta = abs(self.percentage_male - self.percentage_female)
 
 names = []
 result_dict = {}
@@ -49,5 +55,6 @@ with open('result4.csv', 'w') as writecsv:
   csvwriter = csv.writer(writecsv, delimiter=',')
   csvwriter.writerow(['Name', 'Percent Male', 'Percent Female'])
   for key in result_dict:
-    csvwriter.writerow([key, result_dict[key].percentage_male, result_dict[key].percentage_female])
+    if result_dict[key].total > NAME_LIMIT:
+      csvwriter.writerow([key, result_dict[key].percentage_male, result_dict[key].percentage_female])
 
